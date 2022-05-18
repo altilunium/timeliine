@@ -1,0 +1,192 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.7.0/d3.min.js"></script>
+
+<style>
+	#scale{
+		position: fixed;
+		bottom: 0px;
+		left: 0px;
+	}
+</style>
+
+
+<div id="scale"></div>
+
+<script>
+const margin = {top: 0, right: 0, bottom: 60, left: 20}
+const width = 1350 - margin.left - margin.right;
+const height = 800 - margin.top - margin.bottom;
+
+// origin (and moment of origin)
+const origin = new Date(1968, 02, 01)
+const originMoment = moment(origin);
+
+// zoom function 
+const zoom = d3.zoom()
+  .on("zoom", () => {
+    svg.select(".x-axis2")
+      .call(d3.axisBottom(d3.event.transform.rescaleX(xScale2)));
+    svg.selectAll('.dots').attr("transform",d3.event.transform)
+    svg.selectAll('.linee').attr("transform",d3.event.transform)
+    svg.selectAll('.txt').attr("transform",d3.event.transform)
+
+    /*
+    k = d3.event.transform.k;
+    svg.select('.dots').attr("r",10/k)
+    */
+
+    console.log(k)
+
+  })
+  .scaleExtent([-Infinity, Infinity]); 
+
+// x scale
+// use arbitrary end point a few days away
+const xScale = d3.scaleTime()
+  .domain([origin ,Date.now()])
+  .nice()
+  .range([0, width])
+
+
+// x scale copy for zoom rescaling
+const xScale2 = xScale.copy();
+
+
+// svg
+const svg = d3.select("#scale")
+  .append("svg")
+  .attr("width", width + margin.left + margin.right)
+  .attr("height", height + margin.top + margin.bottom)
+  .call(zoom) 
+  .append("g")
+  .attr("transform", `translate(${margin.left},${margin.top})`);
+
+// clippath 
+svg.append("defs").append("clipPath")
+  .attr("id", "clip")
+  .append("rect")
+  .attr("x", 0)
+  .attr("width", width)
+  .attr("height", height);
+
+// render x-axis
+svg.append("g")
+  .attr("class", "x-axis2")
+  .attr("clip-path", "url(#clip)") 
+  .attr("transform", `translate(0,${height - 10})`)
+  .call(d3.axisBottom(xScale)); 
+
+/*
+svg.append("circle")
+	.attr("class", "dots")
+	.attr("r",10)
+	.attr("fill","black")
+	.attr("cx",xScale2(new Date(2017, 02, 01)))
+	.attr("cy",600)
+*/
+
+
+prog = 600
+gd = xScale2(new Date(1972, 1, 1))
+stamp("C",gd,prog)
+gd = xScale2(new Date(1985, 1, 1))
+stamp("C++",gd,prog)
+gd = xScale2(new Date(1989, 12, 1))
+stamp("Python",gd,prog)
+gd = xScale2(new Date(1995, 5, 1))
+stamp("Java",gd,prog)
+gd = xScale2(new Date(1995, 6, 8))
+stamp("PHP",gd,prog+20)
+gd = xScale2(new Date(1989, 1, 1))
+stamp("WWW",gd,580)
+	
+
+gd = xScale2(new Date(2006, 3, 21))
+stamp("Twitter",gd,640)
+
+gd = xScale2(new Date(2010, 10, 6))
+stamp("Instagram",gd,650)
+gd = xScale2(new Date(2013, 8, 1))
+stamp("Telegram",gd,670)
+
+gd = xScale2(new Date(1983, 1, 1))
+stamp("Internet",gd,580)
+
+
+
+/*
+gd = xScale2(new Date(2016, 4, 6))
+stamp("Vivaldi",gd,650)
+gd = xScale2(new Date(1938, 3, 1))
+stamp("Samsung",gd,650)
+gd = xScale2(new Date(1984, 10, 1))
+stamp("Lenovo",gd,650)
+gd = xScale2(new Date(1975, 4, 4))
+stamp("Microsoft",gd,650)
+*/
+
+
+
+gd = xScale2(new Date(2009, 1, 1))
+stamp("Whatsapp",gd,630)
+
+
+
+gd = xScale2(new Date(2016, 9, 1))
+stamp("Tiktok",gd,680)
+gd = xScale2(new Date(2006, 4, 23))
+stamp("Spotify",gd,660)
+
+
+gd = xScale2(new Date(1991, 9, 17))
+stamp("Linux",gd,620)
+gd = xScale2(new Date(1973, 10, 1))
+stamp("Unix",gd,600)
+gd = xScale2(new Date(2005, 2, 14))
+stamp("Youtube",gd,620)
+
+gd = xScale2(new Date(2001, 1, 15))
+stamp("Wikipedia",gd,510)
+gd = xScale2(new Date(2001, 10, 20))
+stamp("Windows XP",gd,530)
+gd = xScale2(new Date(2002, 3, 22))
+stamp("Friendster",gd,549)
+gd = xScale2(new Date(2002, 9, 23))
+stamp("Firefox",gd,570)
+
+
+gd = xScale2(new Date(2003, 1, 1))
+stamp("Android",gd,585)
+
+gd = xScale2(new Date(2004, 2, 1))
+stamp("Facebook",gd,605)
+
+gd = xScale2(new Date(1988, 8, 1))
+stamp("IRC",gd,560)
+gd = xScale2(new Date(1999, 11, 6))
+stamp("Kaskus",gd,490)
+gd = xScale2(new Date(1998, 9, 4))
+stamp("Google",gd,470)
+gd = xScale2(new Date(1988, 6, 24))
+stamp("Internet masuk Indonesia",gd,540)
+
+
+function stamp(x,gd,l){
+	svg.append("line")
+		.attr("class", "linee")
+		.style("stroke","black")
+		.style("stroke-width",1)
+		.attr("x1",gd)
+		.attr("y1",height-10)
+		.attr("x2",gd)
+		.attr("y2",l+5)
+
+	svg.append("text")
+		.attr("class", "txt")
+		.attr("x",gd)
+		.attr("y",l)
+		.text(x)
+}
+
+
+</script>
