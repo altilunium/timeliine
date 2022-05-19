@@ -1,0 +1,32 @@
+<script src="d3min.js"></script>
+<script src="timeliinemin.js"></script>
+
+<style>
+	#scale{
+		position: fixed;
+		bottom: 0px;
+		left: 0px;
+		right: 0px;
+	}
+	.txt{
+		font-size: 14px;
+		font-family: Arial;
+	}
+</style>
+
+
+<div id="scale"></div>
+
+<script>
+li_setup("#scale","1990","2022")
+var baseb = 620
+var base = baseb
+var gap = 15
+stamp("16 Jan 1996","Event A",base)
+base += gap
+stamp("30 Mei 1998","Event B",base)
+stamp("6 Nov 1999","Event C",base)
+base = baseb
+stamp("28 Feb 2003","Event D",base)
+
+</script>
