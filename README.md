@@ -2,6 +2,8 @@
 Timeline maker, based on D3.js
 
 ## Quickstart
+![This is an image]([https://myoctocat.com/assets/images/base-octocat.svg](https://github.com/altilunium/timeliine/blob/main/Screenshot_57.png?raw=true))
+
 ```
 <script src="d3min.js"></script>
 <script src="timeliinemin.js"></script>
