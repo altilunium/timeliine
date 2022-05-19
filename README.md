@@ -20,6 +20,8 @@ Timeline maker, based on D3.js
   stamp("28 Feb 2003","Event D",base)
 </script>
 ```
+Demo : https://altilunium.github.io/timeliine/
+
 ## Documentation
 
 ### li_setup(DOM_ID,min_timestamp,max_timestamp)
