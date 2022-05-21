@@ -67,7 +67,7 @@ function parseTgl(t) {
         (s = a[1]), (i = e(a[0]));
         return new Date(s, i, 1);
     }
-    if (1 == a.length) return new Date(a[0], 1, 1);
+    if (1 == a.length) return new Date(a[0], 0, 1);
 }
 var svg, xScale2, height;
 function li_setup(t, e, a) {
