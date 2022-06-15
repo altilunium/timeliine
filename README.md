@@ -1,4 +1,4 @@
-# timeliine
+# Altilunium Timeliine
 Timeline maker, based on D3.js
 
 ## Quickstart
